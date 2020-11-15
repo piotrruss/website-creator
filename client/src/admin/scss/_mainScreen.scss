@@ -1,0 +1,30 @@
+.main-screen {
+  text-align: center;
+
+  &__header {
+    display: block;
+    margin-top: 10vh;
+    margin-bottom: 20vh;
+    font-size: 300%;
+    color: white;
+    text-align: center;
+  }
+
+  &__list {
+    display: inline-block;
+  }
+
+  &__item {
+    font-size: 175%;
+    color: white;
+    transition: color .3s;
+    cursor: pointer;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+
+    &:hover {
+      color: $text-selected;
+    }
+  }
+
+}

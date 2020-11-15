@@ -1,0 +1,43 @@
+.login-panel {
+  text-align: center;
+
+  &__form {
+    display: inline-block;
+  }
+
+  &__header {
+    color: white;
+    font-size: 2em;
+    margin-bottom: 4em;
+  }
+
+  &__button {
+    display: inline-block;
+    color: $text-inactive;
+    background: $background;
+    font-size: 1.25em;
+    border-radius: 1em;
+    border: 2px solid $text-inactive;
+    padding: .5em 1.5em;
+    margin: 0 auto;
+    transition: .3s color, .3s background;
+    cursor: pointer;
+
+    &:hover {
+      background: $text-inactive;
+      color: $background;
+    }
+
+    &.active {
+      background: $background;
+      color: $text-selected;
+      border: 2px solid $text-selected;
+
+      &:hover {
+        background: $text-selected;
+        color: $background;
+      }
+    }
+  }
+
+}

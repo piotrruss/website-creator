@@ -1,0 +1,52 @@
+// Text Input
+
+.text-input {
+  text-align: left;
+  margin-bottom: 1.5em;
+  transition: all .3s;
+  cursor: text;
+
+  &:focus-within {
+    transform: scale(1.05,1.05);
+  }
+}
+
+.text-input-label {
+  font-size: 1.25em;
+  width: 100%;
+  color: #aaa;
+  display:block;
+  transform:translateY(-1.75em);
+  transform-origin: 0 0;
+  transition: all .3s;
+  z-index: -1;
+  cursor: text;
+}
+
+.text-input-field {
+  font-size: 1.5rem;
+  box-shadow: none;
+  background: $background;
+  color: $text-highlighted;
+  border-radius: 0;
+  border-color: #ccc;
+  border-style: none none solid none;
+  width: 100%;
+  transition: all .5s;
+  padding: 5px;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:focus {
+    box-shadow: none;
+    outline: none;
+    border-color: $text-selected;
+  }
+
+  &:focus + .text-input-label,
+  &:not(:placeholder-shown) + .text-input-label {
+    transform: translateY(-3em) scale(0.8);
+  }
+}

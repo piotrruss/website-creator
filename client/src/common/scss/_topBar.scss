@@ -1,0 +1,114 @@
+@keyframes showTopMenu {
+  0%   {transform: translateY(100%) scale(0.8) ; opacity: 0;}
+  80%   {transform: translateY(100%) scale(1.1); opacity: 100%;}
+  100%   {transform: translateY(100%) scale(1); opacity: 100%;}
+}
+
+.top-bar {
+  flex-grow: 0;
+  display: flex;
+  justify-content: end;
+  padding: 1em;
+
+
+  &__fog {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.user {
+  position: relative;
+
+  &__list {
+    position: absolute;
+    display: block;
+    bottom: 0;
+    right: 0;
+    transform: translateY(100%);
+    background: #222;
+    animation: showTopMenu .3s;
+  }
+
+  &__main-item {
+    color: white;
+    display: block;
+    padding: .5em;
+    white-space: nowrap;
+    transition: color .3s;
+    cursor: pointer;
+
+    &--active {
+      background: #222;
+      color: yellow;
+    }
+
+    &:hover {
+      color: yellow;
+    }
+  }
+
+  &__item {
+    display: block;
+    color: white;
+    padding: .5em;
+    font-weight: normal;
+    transition: color .3s;
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: right;
+
+    &:hover {
+      color: yellow;
+    }
+  }
+}
+
+.lang-switch {
+  display: inline-block;
+  position: relative;
+
+  &__list {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    background: #222;
+    animation: showTopMenu .3s;
+  }
+
+  &__main-item {
+    transition: .3s color;
+    padding: .5em;
+    display: block;
+    color: white;
+    font-weight: normal;
+    cursor: pointer;
+
+    &:hover {
+      color: yellow;
+    }
+
+    &--active {
+      background: #222;
+      color: yellow;
+    }
+  }
+
+  &__item {
+    padding: .5em;
+    display: block;
+    color: white;
+    font-weight: normal;
+    cursor: pointer;
+    transition: color .3s;
+
+    &:hover {
+      color: yellow;
+    }
+  }
+}
