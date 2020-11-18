@@ -1,4 +1,6 @@
-export default {
+export const defaultLanguage = 'en';
+export const fallbackLanguage = 'en';
+export const translations = {
   "en": {
     "main-title": "Website Manager",
     "login-to-admin": "Login to Admin Panel",
@@ -28,9 +30,12 @@ export default {
   },
   "pl": {
     "main-title": "Website Manager",
+    "login-to-admin": "Zaloguj do Panelu Administracyjnego",
     "no-saved-websites": "Nie masz jeszcze żadnych zapisanych projektów, utwórz nowy",
     "create-new-project": "Utwórz nowy projekt",
     "edit-current-project": "Edytuj bieżący projekt",
     "show-saved-projects": "Pokaż zapisane projekty",
   },
-}
+};
+
+export const languages = Object.keys(translations);

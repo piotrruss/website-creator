@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import LangSwitch from './LangSwitch.jsx';
 import User from './User.jsx';
 
-const TopBar = ({user, setUser, setHover, lang, setLang, t={t}}) => {
+const TopBar = ({ user, setUser, lang, setLang }) => {
   const [opened, setOpened] = useState(false);
 
   return (
@@ -16,7 +16,6 @@ const TopBar = ({user, setUser, setHover, lang, setLang, t={t}}) => {
       <LangSwitch
         lang={lang}
         setLang={setLang}
-        setHover={setHover}
         opened={opened}
         setOpened={setOpened}
       />
@@ -24,8 +23,6 @@ const TopBar = ({user, setUser, setHover, lang, setLang, t={t}}) => {
           <User
             user={user}
             setUser={setUser}
-            setHover={setHover}
-            t={t}
             opened={opened}
             setOpened={setOpened}
           />

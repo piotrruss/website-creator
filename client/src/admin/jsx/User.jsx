@@ -1,17 +1,18 @@
 import React from 'react';
-import WithHover from './WithHover.jsx';
+import { WithHover, t } from '../hocs';
+import logout from '../api/logout';
 
-const User = ({user, setUser, setHover, t, opened, setOpened}) => {
+const User = ({ user, setUser, opened, setOpened }) => {
   const handleLogout = () => {
     setOpened(false);
-    setUser(null);
+    logout();
   };
   const handleChangePass = () => { setOpened(false) };
   const handleRemoveUser = () => { setOpened(false) };
 
   return (
     <div className="user">
-      <WithHover setHover={setHover} message="click-to-change-user">
+      <WithHover message="click-to-change-user">
         <span
           className={`user__main-item${opened === 'user' ? ' user__main-item--active' : ''}`}
           onClick={() => setOpened(opened !== 'user' ? 'user' : false)}
@@ -21,10 +22,10 @@ const User = ({user, setUser, setHover, t, opened, setOpened}) => {
         {
           opened === 'user' && (
             <div className="user__list" >
-              <WithHover setHover={setHover} message="click-to-logout">
+              <WithHover message="click-to-logout">
                 <span className="user__item" onClick={handleLogout}>{t('logout')}</span>
               </WithHover>
-              <WithHover setHover={setHover} message="click-to-change-user-settings">
+              <WithHover message="click-to-change-user-settings">
                 <span className="user__item" onClick={handleChangePass}>{t('user-settings')}</span>
               </WithHover>
             </div>

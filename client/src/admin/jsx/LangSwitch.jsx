@@ -1,9 +1,8 @@
 import React from 'react';
-import WithHover from './WithHover.jsx';
-import texts from '../data/texts.js';
+import { WithHover } from '../hocs';
+import { languages } from '../data/translations.js'
 
-const LangSwitch = ({ lang, setLang, setHover, opened, setOpened}) => {
-
+const LangSwitch = ({ lang, setLang, opened, setOpened}) => {
   const handleSetLang = (key) => {
     setLang(key);
     setOpened(false);
@@ -11,7 +10,7 @@ const LangSwitch = ({ lang, setLang, setHover, opened, setOpened}) => {
 
   return (
     <div className="lang-switch">
-      <WithHover setHover={setHover} message="click-to-change-language">
+      <WithHover message="click-to-change-language">
         <span
           className={`lang-switch__main-item${opened === 'lang' ? ' lang-switch__main-item--active' : ''}`}
           onClick={() => setOpened(opened !== 'lang' ? 'lang' : false)}
@@ -22,7 +21,7 @@ const LangSwitch = ({ lang, setLang, setHover, opened, setOpened}) => {
           opened === 'lang' && (
             <div className="lang-switch__list">
               {
-                Object.keys(texts).map(key => key !== lang && (
+                languages.map(key => key !== lang && (
                   <span
                     className="lang-switch__item"
                     key={key}

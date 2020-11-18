@@ -3,33 +3,35 @@ import ReactDOM from 'react-dom';
 
 import "../scss/index.scss";
 
-import texts from '../../common/data/texts.js';
-import TopBar from '../../common/jsx/TopBar.jsx';
-import Info from '../../common/jsx/Info.jsx';
+import TopBar from './TopBar.jsx';
+import Info from './Info.jsx';
 import MainScreen from './MainScreen.jsx';
+import Context from '../context';
+import { defaultLanguage } from '../data/translations';
 
 const App = () => {
-  const [adminLang, setAdminLang] = useState('en');
+  const [lang, setLang] = useState(defaultLanguage);
   const [projects, setProjects] = useState([]);
   const [info, setInfo] = useState('');
   const [hover, setHover] = useState('');
   const [view, setView] = useState('main');
   const [user, setUser] = useState(null);
-  const t = (key) => texts[adminLang][key] || texts['en'][key];
 
-  // useEffect(() => {
-  //   setInfo('no-saved-websites')
-  //   setHover('');
-  // }, [user]);
+  useEffect(() => {
+    setInfo('no-saved-websites');
+    setUser('admin@op.pl');
+  }, []);
 
   return (
-    <div className="main">
-      <TopBar lang={adminLang} setLang={setAdminLang} setHover={setHover} user={user} setUser={setUser} t={t} />
-      <div className="main__content">
-        { view === 'main' && <MainScreen projects={projects} t={t} setHover={setHover} /> }
+    <Context.Provider value={{ lang, setHover, setInfo }}>
+      <div className="main">
+        <TopBar lang={lang} setLang={setLang} user={user} setUser={setUser} />
+        <div className="main__content">
+          { view === 'main' && <MainScreen projects={projects} /> }
+        </div>
+        <Info info={info} hover={hover} />
       </div>
-      <Info info={info} hover={hover} t={t} />
-    </div>
+    </Context.Provider>
   )
 };
 

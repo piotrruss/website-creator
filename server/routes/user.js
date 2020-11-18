@@ -24,7 +24,14 @@ router.post('/login', async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password);
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+    res
+      .cookie('token', token, {
+        expires: new Date(Date.now() + 604800000),
+        secure: false,
+        httpOnly: true,
+      })
+      .status(204)
+      .send();
   } catch (err) {
     res.status(401).send('Could not login');
   }
@@ -37,7 +44,7 @@ router.post('/logout', auth, async (req, res) => {
     });
     await req.user.save();
 
-    res.send();
+    res.status(204).send();
   } catch (err) {
     res.status(500).send();
   }

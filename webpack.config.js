@@ -1,11 +1,4 @@
-// const admin = require("./client/src/admin/webpack.config");
-// const admin = require("./client/src/admin/webpack.config");
-// const login = require("./survey.config");
-// module.exports = [account, survey];
-
 const path = require("path")
-// const CopyPlugin = require('copy-webpack-plugin')
-// module.exports = {
 module.exports = ['login', 'admin'].map(appName => ({
   entry: "./client/src/" + appName + "/jsx/App.jsx",
   output: { filename: "out.js", path: path.resolve(__dirname, "client", appName) },
