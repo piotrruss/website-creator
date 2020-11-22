@@ -42,8 +42,8 @@ userSchema.methods.generateJwtToken = async function (currentRef) {
 
   return jwt.sign(
     { _id: this._id.toString(), ref },
-    'replaceThisWithSecretString',
-    { expiresIn: 300 }
+    process.env.JWT_SECRET,
+    { expiresIn: parseInt(process.env.JWT_TOKEN_MAX_AGE) }
   );
 }
 

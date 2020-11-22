@@ -10,13 +10,14 @@ const auth = async (req, res, next) => {
     }
 
     try {
-      const decoded = jwt.verify(token, 'replaceThisWithSecretString');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.userId = decoded._id;
       req.refreshToken = decoded.ref;
       return next();
     } catch(er) {
       if (er.message && er.message === 'jwt expired') {
-        const { _id, ref } = jwt.decode(token, 'replaceThisWithSecretString');
+        const { _id, ref } = jwt.decode(token, process.env.JWT_SECRET);
+        console.log('reading db to login')
         const user = await User.findById(_id);
 
         if (!user) {

@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
     const token = await user.generateJwtToken();
     res
       .cookie('token', token, {
-        maxAge: 604800000,
+        maxAge: parseInt(process.env.COOKIE_MAX_AGE),
         secure: false,
         httpOnly: true,
       })

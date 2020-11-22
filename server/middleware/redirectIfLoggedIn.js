@@ -9,7 +9,7 @@ const redirectIfLoggedIn = async (req, res, next) => {
       throw new Error();
     }
 
-    const decoded = jwt.verify(token, 'replaceThisWithSecretString');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({ _id: decoded._id, 'tokens.token': token });
 
     if (!user) {
