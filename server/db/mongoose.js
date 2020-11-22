@@ -6,5 +6,5 @@ mongoose.connect(
     useNewUrlParser: true,
     useCreateIndex: true,
   },
-  () => console.log('connected to DB')
+  () => console.log('Successfully connected to DB.')
 );

@@ -7,7 +7,7 @@ require('./server/db/mongoose');
 const setCookie = require('./server/helpers/setCookie');
 const userRoutes = require('./server/routes/user');
 const auth = require('./server/middleware/auth');
-const redirectIfLoggedIn = require('./server/middleware/redirectIfLoggedIn');
+const redirectLogged = require('./server/middleware/redirectLogged');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -23,7 +23,7 @@ app.use('/admin/', auth, express.static(
   { setHeaders: setCookie }
 ));
 
-app.use('/login/', redirectIfLoggedIn, express.static(
+app.use('/login/', redirectLogged, express.static(
   path.join(__dirname, 'client/login')
 ));
 
