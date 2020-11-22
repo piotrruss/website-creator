@@ -86,6 +86,30 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./client/src/admin/api/getUser.js":
+/*!*****************************************!*\
+  !*** ./client/src/admin/api/getUser.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ((setUser) => (\n  fetch('/api/user/me')\n    .then(res => res.json())\n    .then(data => setUser(data.email))\n    .catch(() => {})\n));\n\n\n//# sourceURL=webpack:///./client/src/admin/api/getUser.js?");
+
+/***/ }),
+
+/***/ "./client/src/admin/api/index.js":
+/*!***************************************!*\
+  !*** ./client/src/admin/api/index.js ***!
+  \***************************************/
+/*! exports provided: getUser, logout */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _getUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getUser */ \"./client/src/admin/api/getUser.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"getUser\", function() { return _getUser__WEBPACK_IMPORTED_MODULE_0__[\"default\"]; });\n\n/* harmony import */ var _logout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logout */ \"./client/src/admin/api/logout.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"logout\", function() { return _logout__WEBPACK_IMPORTED_MODULE_1__[\"default\"]; });\n\n\n\n\n\n\n\n//# sourceURL=webpack:///./client/src/admin/api/index.js?");
+
+/***/ }),
+
 /***/ "./client/src/admin/api/logout.js":
 /*!****************************************!*\
   !*** ./client/src/admin/api/logout.js ***!
@@ -94,7 +118,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (() => (\n  fetch('/api/user/logout', {\n    method: 'POST',\n  })\n  .then(() => window.location.href = \"/\")\n  .catch(() => {})\n));\n\n\n//# sourceURL=webpack:///./client/src/admin/api/logout.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (() => (\n  fetch('/api/user/logout', {\n    method: 'POST',\n  })\n  .then(() => window.location.href = \"/\")\n  .then(() => console.log('it will logout'))\n  .catch(() => {})\n));\n\n\n//# sourceURL=webpack:///./client/src/admin/api/logout.js?");
 
 /***/ }),
 
@@ -202,7 +226,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _hocs = __webpack_require__(/*! ../hocs */ \"./client/src/admin/hocs/index.js\");\n\nvar _logout = __webpack_require__(/*! ../api/logout */ \"./client/src/admin/api/logout.js\");\n\nvar _logout2 = _interopRequireDefault(_logout);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar User = function User(_ref) {\n  var user = _ref.user,\n      setUser = _ref.setUser,\n      opened = _ref.opened,\n      setOpened = _ref.setOpened;\n\n  var handleLogout = function handleLogout() {\n    setOpened(false);\n    (0, _logout2.default)();\n  };\n  var handleChangePass = function handleChangePass() {\n    setOpened(false);\n  };\n  var handleRemoveUser = function handleRemoveUser() {\n    setOpened(false);\n  };\n\n  return _react2.default.createElement(\n    'div',\n    { className: 'user' },\n    _react2.default.createElement(\n      _hocs.WithHover,\n      { message: 'click-to-change-user' },\n      _react2.default.createElement(\n        'span',\n        {\n          className: 'user__main-item' + (opened === 'user' ? ' user__main-item--active' : ''),\n          onClick: function onClick() {\n            return setOpened(opened !== 'user' ? 'user' : false);\n          }\n        },\n        user\n      ),\n      opened === 'user' && _react2.default.createElement(\n        'div',\n        { className: 'user__list' },\n        _react2.default.createElement(\n          _hocs.WithHover,\n          { message: 'click-to-logout' },\n          _react2.default.createElement(\n            'span',\n            { className: 'user__item', onClick: handleLogout },\n            (0, _hocs.t)('logout')\n          )\n        ),\n        _react2.default.createElement(\n          _hocs.WithHover,\n          { message: 'click-to-change-user-settings' },\n          _react2.default.createElement(\n            'span',\n            { className: 'user__item', onClick: handleChangePass },\n            (0, _hocs.t)('user-settings')\n          )\n        )\n      )\n    )\n  );\n};\n\nexports.default = User;\n\n//# sourceURL=webpack:///./client/src/admin/jsx/User.jsx?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _hocs = __webpack_require__(/*! ../hocs */ \"./client/src/admin/hocs/index.js\");\n\nvar _api = __webpack_require__(/*! ../api */ \"./client/src/admin/api/index.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar User = function User(_ref) {\n  var user = _ref.user,\n      setUser = _ref.setUser,\n      opened = _ref.opened,\n      setOpened = _ref.setOpened;\n\n  var handleLogout = function handleLogout() {\n    setOpened(false);\n    (0, _api.logout)();\n  };\n  var handleChangePass = function handleChangePass() {\n    setOpened(false);\n  };\n  var handleRemoveUser = function handleRemoveUser() {\n    setOpened(false);\n  };\n\n  return _react2.default.createElement(\n    'div',\n    { className: 'user' },\n    _react2.default.createElement(\n      _hocs.WithHover,\n      { message: 'click-to-change-user' },\n      _react2.default.createElement(\n        'span',\n        {\n          className: 'user__main-item' + (opened === 'user' ? ' user__main-item--active' : ''),\n          onClick: function onClick() {\n            return setOpened(opened !== 'user' ? 'user' : false);\n          }\n        },\n        user\n      ),\n      opened === 'user' && _react2.default.createElement(\n        'div',\n        { className: 'user__list' },\n        _react2.default.createElement(\n          _hocs.WithHover,\n          { message: 'click-to-logout' },\n          _react2.default.createElement(\n            'span',\n            { className: 'user__item', onClick: handleLogout },\n            (0, _hocs.t)('logout')\n          )\n        ),\n        _react2.default.createElement(\n          _hocs.WithHover,\n          { message: 'click-to-change-user-settings' },\n          _react2.default.createElement(\n            'span',\n            { className: 'user__item', onClick: handleChangePass },\n            (0, _hocs.t)('user-settings')\n          )\n        )\n      )\n    )\n  );\n};\n\nexports.default = User;\n\n//# sourceURL=webpack:///./client/src/admin/jsx/User.jsx?");
 
 /***/ }),
 

@@ -16,7 +16,13 @@ app.use(cookieParser());
 
 app.use('/api/user/', userRoutes);
 
-app.use('/admin/', auth, express.static(path.join(__dirname, 'client/admin')));
+app.use('/admin/', auth, express.static(path.join(__dirname, 'client/admin'), {
+  setHeaders: function (res, path, stat) {
+    if (res.req.newToken){
+      res.set('Set-Cookie', "token=" + res.req.newToken + ";httpOnly;MaxAge=604800000;Path=/");
+    }
+  }
+}));
 
 app.use('/login/', redirectIfLoggedIn, express.static(path.join(__dirname, 'client/login')));
 

@@ -1,14 +1,19 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const auth = require('../middleware/auth');
+const jwt = require('jsonwebtoken');
+
+router.get('/me', auth, async (req, res) => {
+  const user = await User.findById(req.userId);
+  res.json({ email: user.email });
+})
 
 router.post('/register', async (req, res) => {
   const user = new User(req.body);
 
   try {
     await user.save();
-    const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
+    res.status(201).send({ email: user.email });
   } catch(err) {
     if (err._message) {
       res.status(422).send(err._message);
@@ -23,10 +28,10 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password);
-    const token = await user.generateAuthToken();
+    const token = await user.generateJwtToken();
     res
       .cookie('token', token, {
-        expires: new Date(Date.now() + 604800000),
+        maxAge: 604800000,
         secure: false,
         httpOnly: true,
       })
@@ -39,12 +44,12 @@ router.post('/login', async (req, res) => {
 
 router.post('/logout', auth, async (req, res) => {
   try {
-    req.user.tokens = req.user.tokens.filter((token) => {
-      return token.token !== req.token;
-    });
-    await req.user.save();
-
-    res.status(204).send();
+    const user = await User.findById(req.userId);
+    await user.endSession(req.refreshToken);
+    res
+      .clearCookie('token')
+      .status(204)
+      .send();
   } catch (err) {
     res.status(500).send();
   }

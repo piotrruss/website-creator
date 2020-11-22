@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
+const randtoken = require('rand-token');
 const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
@@ -23,22 +24,36 @@ const userSchema = new mongoose.Schema({
     min: 4,
     max: 1024,
   },
-  tokens: [{
-    token: {
+  sessions: [{
+    ref: {
       type: String,
       required: true
     }
   }]
 });
 
-userSchema.methods.generateAuthToken = async function () {
-  const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, 'replaceThisWithSecretString')
+userSchema.methods.generateJwtToken = async function (currentRef) {
+  const ref = currentRef ? currentRef : randtoken.uid(256);
 
-  user.tokens = user.tokens.concat({ token });
-  user.save();
+  if (!currentRef) {
+    this.sessions = this.sessions.concat({ ref });
+    this.save();
+  }
 
-  return token;
+  return jwt.sign(
+    { _id: this._id.toString(), ref },
+    'replaceThisWithSecretString',
+    { expiresIn: 300 }
+  );
+}
+
+userSchema.methods.endSession = async function (ref) {
+  this.sessions = this.sessions.filter((session) => {
+    return session.ref !== ref;
+  });
+
+  await this.save();
+  return null;
 }
 
 userSchema.statics.findByCredentials = async (email, password) => {

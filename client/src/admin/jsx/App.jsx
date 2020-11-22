@@ -8,6 +8,7 @@ import Info from './Info.jsx';
 import MainScreen from './MainScreen.jsx';
 import Context from '../context';
 import { defaultLanguage } from '../data/translations';
+import { getUser } from '../api';
 
 const App = () => {
   const [lang, setLang] = useState(defaultLanguage);
@@ -18,8 +19,8 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    getUser(setUser);
     setInfo('no-saved-websites');
-    setUser('admin@op.pl');
   }, []);
 
   return (
