@@ -5,6 +5,11 @@ const jwt = require('jsonwebtoken');
 
 router.get('/me', auth, async (req, res) => {
   const user = await User.findById(req.userId);
+
+  if (!user) {
+    res.clearCookie('token').redirect('/login');
+  }
+
   res.json({ email: user.email });
 })
 
