@@ -15,7 +15,6 @@ const sessionSchema = new mongoose.Schema({
 
 sessionSchema.methods.setAccessDate = function (user) {
   this.lastAccess = Date.now();
-  console.log('refreshing time in db')
   this.save();
 }
 

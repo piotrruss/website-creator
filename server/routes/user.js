@@ -4,15 +4,36 @@ const Session = require('../models/Session');
 const auth = require('../middleware/auth');
 const jwt = require('jsonwebtoken');
 
+// Get user data
 router.get('/me', auth, (req, res) => {
   if (req.loggedUser) {
-    console.log(req.loggedUser)
     return res.json(req.loggedUser);
   }
 
   return res.clearCookie('token').redirect('/login');
 })
 
+// Set Language
+router.post('/language', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.loggedUser.userId);
+    if (!user) {
+      throw new Error();
+    }
+
+    user.language = req.body.language;
+    await user.save();
+
+    const session = await Session.findById(req.sessionId);
+    session.generateJwtToken(user);
+
+    res.status(204).send();
+  } catch(err) {
+    res.status(400).send('Could not save the language settings.');
+  }
+});
+
+// Register new user
 router.post('/register', async (req, res) => {
   const user = new User(req.body);
 
@@ -30,6 +51,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// Login user
 router.post('/login', async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password);
@@ -61,6 +83,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Logout user
 router.post('/logout', auth, async (req, res) => {
   try {
     await Session.findByIdAndRemove(req.sessionId);

@@ -8,7 +8,7 @@ import Info from './Info.jsx';
 import MainScreen from './MainScreen.jsx';
 import Context from '../context';
 import { defaultLanguage } from '../data/translations';
-import { getUser } from '../api';
+import { getUser, setDbLang } from '../api';
 
 const App = () => {
   const [lang, setLang] = useState(defaultLanguage);
@@ -17,6 +17,11 @@ const App = () => {
   const [hover, setHover] = useState('');
   const [view, setView] = useState('main');
   const [user, setUser] = useState(null);
+
+  const setLangWithDb = (key) => {
+    setLang(key)
+    setDbLang(key);
+  };
 
   useEffect(() => {
     getUser(setUser);
@@ -30,7 +35,7 @@ const App = () => {
   return (
     <Context.Provider value={{ lang, setHover, setInfo }}>
       <div className="main">
-        <TopBar lang={lang} setLang={setLang} user={user} setUser={setUser} />
+        <TopBar lang={lang} setLang={setLangWithDb} user={user} setUser={setUser} />
         <div className="main__content">
           { view === 'main' && <MainScreen projects={projects} /> }
         </div>

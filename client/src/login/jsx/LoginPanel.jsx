@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import login from '../api/login';
 import { t } from '../../admin/hocs';
 
-const LoginPanel = ({setUser}) => {
+const LoginPanel = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [active, setActive] = useState(false);

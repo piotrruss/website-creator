@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import "../scss/index.scss";
@@ -13,18 +13,27 @@ const App = () => {
   const [lang, setLang] = useState(defaultLanguage);
   const [info, setInfo] = useState('login-info');
   const [hover, setHover] = useState('');
-  const [user, setUser] = useState(null);
+
+  const setLangHelper = (key) => {
+    setLang(key);
+    localStorage.setItem('language', key);
+  }
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem('language');
+    if (savedLang) {
+      setLang(savedLang);
+    }
+  }, [])
 
   return (
     <Context.Provider value={{ lang, setHover, setInfo }}>
       <div className="main">
         <TopBar
           lang={lang}
-          setLang={setLang}
+          setLang={setLangHelper}
         />
-        <LoginPanel
-          setUser={setUser}
-        />
+        <LoginPanel/>
         <Info
           info={info}
           hover={hover}

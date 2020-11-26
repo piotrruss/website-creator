@@ -3,7 +3,6 @@ const User = require('../models/User');
 const Session = require('../models/Session');
 
 const redirectLogged = async (req, res, next) => {
-  console.log('redirectLogged')
   try {
     const token = req.cookies.token || '';
     if (!token) {

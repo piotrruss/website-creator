@@ -1,1 +1,1 @@
-console.log('hello ze strony testowej');
+console.log('Here will be a result page');
