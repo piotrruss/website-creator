@@ -1,37 +1,42 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Session = require('../models/Session');
 
 const redirectLogged = async (req, res, next) => {
+  console.log('redirectLogged')
   try {
     const token = req.cookies.token || '';
-
     if (!token) {
       throw new Error();
     }
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      res.redirect('/admin');
+      const token = jwt.verify(token, process.env.JWT_SECRET);
+      if (!token.user || !token.user.userId){
+        throw new Error();
+      }
+      return res.redirect('/admin');
     } catch(er) {
       if (er.message && er.message === 'jwt expired') {
-        const { _id, ref } = jwt.decode(token, process.env.JWT_SECRET);
-        const user = await User.findById(_id);
+        const {sessionId, user} = jwt.decode(token);
+        const userData = JSON.parse(user);
+        const session = await Session.findById(sessionId);
 
-        if (!user) {
+        if (!session || session.userId.toString() !== userData.userId) {
           throw new Error();
         }
 
-        if (user.sessions.filter(s => s.ref === ref).length > 0) {
-          const newToken = await user.generateJwtToken(ref);;
-          res
-            .cookie('token', token, {
-              maxAge: parseInt(process.env.COOKIE_MAX_AGE),
-              secure: false,
-              httpOnly: true,
-            })
-            .redirect('/admin');
-        }
+        session.setAccessDate();
+        const newToken = session.generateJwtToken(userData);
 
+        return res
+          .cookie('token', newToken, {
+            maxAge: parseInt(process.env.COOKIE_MAX_AGE),
+            secure: false,
+            SameSite: 'Strict',
+            httpOnly: true,
+          })
+          .redirect('/admin');
         throw new Error();
       }
 

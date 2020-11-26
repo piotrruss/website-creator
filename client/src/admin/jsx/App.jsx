@@ -23,6 +23,10 @@ const App = () => {
     setInfo('no-saved-websites');
   }, []);
 
+  useEffect(() => {
+    user && setLang(user.language);
+  }, [user]);
+
   return (
     <Context.Provider value={{ lang, setHover, setInfo }}>
       <div className="main">

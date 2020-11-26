@@ -16,7 +16,7 @@ const LoginPanel = ({setUser}) => {
 
   const submit = (e) => {
     e.preventDefault();
-    login(email, password);
+    login({email, password});
   }
 
   return (

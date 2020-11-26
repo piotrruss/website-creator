@@ -1,16 +1,16 @@
 const router = require('express').Router();
 const User = require('../models/User');
+const Session = require('../models/Session');
 const auth = require('../middleware/auth');
 const jwt = require('jsonwebtoken');
 
-router.get('/me', auth, async (req, res) => {
-  const user = await User.findById(req.userId);
-
-  if (!user) {
-    res.clearCookie('token').redirect('/login');
+router.get('/me', auth, (req, res) => {
+  if (req.loggedUser) {
+    console.log(req.loggedUser)
+    return res.json(req.loggedUser);
   }
 
-  res.json({ email: user.email });
+  return res.clearCookie('token').redirect('/login');
 })
 
 router.post('/register', async (req, res) => {
@@ -33,10 +33,24 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password);
-    const token = await user.generateJwtToken();
+    if (!user) {
+      throw new Error();
+    }
+
+    const session = new Session({ userId: user._id });
+    await session.save();
+
+    const publicUserData = {
+      userId: user.id,
+      email: user.email,
+      language: user.language
+    };
+
+    const token = session.generateJwtToken(publicUserData);
+
     res
       .cookie('token', token, {
-        maxAge: parseInt(process.env.COOKIE_MAX_AGE),
+        maxAge: (1000 * parseInt(process.env.COOKIE_MAX_AGE)),
         secure: false,
         httpOnly: true,
       })
@@ -49,8 +63,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/logout', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.userId);
-    await user.endSession(req.refreshToken);
+    await Session.findByIdAndRemove(req.sessionId);
     res
       .clearCookie('token')
       .status(204)

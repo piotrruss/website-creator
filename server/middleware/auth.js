@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const Session = require('../models/Session');
 
 const auth = async (req, res, next) => {
   try {
@@ -10,27 +10,26 @@ const auth = async (req, res, next) => {
     }
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.userId = decoded._id;
-      req.refreshToken = decoded.ref;
+      const {sessionId, user} = jwt.verify(token, process.env.JWT_SECRET);
+      req.sessionId = sessionId;
+      req.loggedUser = JSON.parse(user);
       return next();
+
     } catch(er) {
       if (er.message && er.message === 'jwt expired') {
-        const { _id, ref } = jwt.decode(token, process.env.JWT_SECRET);
-        const user = await User.findById(_id);
+        const {sessionId, user} = jwt.decode(token);
+        const userData = JSON.parse(user);
+        const session = await Session.findById(sessionId);
 
-        if (!user) {
+        if (!session || session.userId.toString() !== userData.userId) {
           throw new Error();
         }
 
-        if (user.sessions.filter(s => s.ref === ref).length > 0) {
-          req.userId = _id;
-          req.refreshToken = ref;
-          req.newToken = await user.generateJwtToken(ref);;
-          return next();
-        }
-
-        throw new Error();
+        session.setAccessDate();
+        req.newToken = session.generateJwtToken(userData);;
+        req.sessionId = sessionId;
+        req.loggedUser = userData;
+        return next();
       }
 
       throw new Error();

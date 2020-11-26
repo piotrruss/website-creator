@@ -17,7 +17,7 @@ const User = ({ user, setUser, opened, setOpened }) => {
           className={`user__main-item${opened === 'user' ? ' user__main-item--active' : ''}`}
           onClick={() => setOpened(opened !== 'user' ? 'user' : false)}
         >
-          {user}
+          {user.email}
         </span>
         {
           opened === 'user' && (

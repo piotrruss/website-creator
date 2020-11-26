@@ -31,7 +31,7 @@ app.use('/', express.static(
   path.join(__dirname, 'client/public')
 ));
 
-app.get('*', (req, res) => res.redirect('/'));
+// app.get('*', (req, res) => res.redirect('/'));
 
 app.listen(port, () => {
   console.log("Server is up on port " + port + ".");
