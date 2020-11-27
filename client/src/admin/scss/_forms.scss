@@ -12,7 +12,7 @@
 }
 
 .text-input-label {
-  font-size: 1.25em;
+  font-size: 1em;
   width: 100%;
   color: #aaa;
   display:block;
@@ -21,10 +21,11 @@
   transition: all .3s;
   z-index: -1;
   cursor: text;
+  pointer-events: none;
 }
 
 .text-input-field {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   box-shadow: none;
   background: $background;
   color: $text;

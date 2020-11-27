@@ -1,13 +1,31 @@
 .main-screen {
   text-align: center;
 
+  @keyframes shine {
+    0% {background-size: 220% 100%;}
+    10% {background-position: 0 100%;}
+    100% {background-position: 0 100%;}
+  }
+
   &__header {
     display: block;
     margin-top: 10vh;
     margin-bottom: 20vh;
-    font-size: 300%;
-    color: white;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: $text;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to right, $text 50%, $text-selected 55%, $text 60%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-position: 110%;
+    animation: shine 15s ease-out;
+    background-size: 220% 100%;
+    animation-iteration-count: infinite;
+    animation-delay: 8s;
   }
 
   &__list {
@@ -15,7 +33,7 @@
   }
 
   &__item {
-    font-size: 175%;
+    font-size: 1.5em;
     color: white;
     transition: color .3s;
     cursor: pointer;

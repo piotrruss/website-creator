@@ -1,14 +1,37 @@
 .login-panel {
   text-align: center;
+  padding: 1.5em;
 
   &__form {
     display: inline-block;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  @keyframes shine {
+    0% {background-size: 220% 100%;}
+    7% {background-position: 0 100%;}
+    100% {background-position: 0 100%;}
   }
 
   &__header {
-    color: white;
-    font-size: 2em;
+    color: $text;
+    font-size: 1.75em;
+    line-height: 1.5;
     margin-bottom: 4em;
+    position: relative;
+    display: inline-block;
+    color: $text;
+    overflow: hidden;
+    background: linear-gradient(to right, $text 50%, $text-selected 55%, $text 60%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-position: 110%;
+    animation: shine 15s ease-out;
+    background-size: 220% 100%;
+    animation-iteration-count: infinite;
+    animation-delay: 8s;
   }
 
   &__button {
@@ -21,14 +44,9 @@
     padding: .5em 1.5em;
     margin: 0 auto;
     transition: .3s color, .3s background;
-    cursor: pointer;
-
-    &:hover {
-      background: $text-inactive;
-      color: $background;
-    }
 
     &.active {
+      cursor: pointer;
       background: $background;
       color: $text-selected;
       border: 2px solid $text-selected;

@@ -16,26 +16,26 @@ const LoginPanel = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    login({email, password});
+    active && login({email, password});
   }
 
   return (
     <div className="login-panel">
+      <p className="login-panel__header">
+        {t('login-to-admin')}
+      </p>
       <form className="login-panel__form" onSubmit={submit}>
-        <p className="login-panel__header">
-          {t('login-to-admin')}
-        </p>
         <div className="text-input">
           <input
             onChange={e => setEmail(e.target.value)}
-            placeholder={t('user')}
-            id="admin-user-name"
-            name="admin-user-name"
+            placeholder={t('email')}
+            id="admin-email"
+            name="admin-email"
             type="text"
             className="text-input-field"
             value={email}
           />
-          <label htmlFor="admin-user-name" className="text-input-label">{t('user')}</label>
+          <label htmlFor="admin-user-name" className="text-input-label">{t('email')}</label>
         </div>
         <div className="text-input">
           <input

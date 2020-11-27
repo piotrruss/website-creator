@@ -5,10 +5,10 @@
 }
 
 .top-bar {
-  flex-grow: 0;
-  display: flex;
-  justify-content: end;
-  padding: 1em;
+  width: 100%;
+  text-align: right;
+  white-space: nowrap;
+  padding-bottom: 1em;
 
 
   &__fog {
@@ -22,6 +22,7 @@
 
 .user {
   position: relative;
+  display: inline-block;
 
   &__list {
     position: absolute;
