@@ -1,5 +1,5 @@
 import React from 'react';
-import { t } from '../hocs';
+import { t } from '../../hocs';
 
 const Info = ({ info, hover }) => (
   <p className="info">

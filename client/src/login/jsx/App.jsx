@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 
 import "../scss/index.scss";
 
-import TopBar from '../../admin/jsx/TopBar.jsx';
-import Info from '../../admin/jsx/Info.jsx';
+import TopBar from '../../admin/jsx/layout/TopBar.jsx';
+import Info from '../../admin/jsx/layout/Info.jsx';
 import LoginPanel from './LoginPanel.jsx';
 import Context from '../../admin/context';
 import { defaultLanguage } from '../../admin/data/translations';

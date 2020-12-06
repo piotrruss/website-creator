@@ -1,0 +1,81 @@
+.creator {
+  text-align: center;
+  width: 100%;
+
+  &__header {
+    color: $text;
+    text-align: center;
+    font-size: 1.5em;
+    padding-bottom: 1.5em;
+  }
+
+  &__input-line {
+    max-width: 600px;
+    margin: 0 auto;
+    align-items: center;
+    padding: 1em 0;
+  }
+
+  &__favicon {
+    display: flex;
+
+    &-ico {
+      height: 32px;
+      width: 32px;
+      line-height: 32px;
+      background: $text-inactive;
+      color: $background-menu;
+      border: 1px solid $background-menu;
+      transition: .3s background;
+      cursor: pointer;
+
+      &:hover {
+        background: $text-selected;
+      }
+    }
+
+    &-text {
+      color: $text-inactive;
+      font-size: 1em;
+      line-height: 32px;
+      padding-left: 1em;
+    }
+  }
+
+  &__btns {
+    padding-top: 3em;
+    font-size: 1.5em;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+
+    &-next {
+      color: $text-inactive;
+      display: inline-block;
+      padding: 1em;
+
+      &.active {
+        color: $text;
+        transition: .3s color;
+        cursor: pointer;
+
+        &:hover {
+          color: $text-selected;
+        }
+      }
+    }
+
+    &-cancel {
+      display: inline-block;
+      color: $text;
+      transition: .3s color;
+      cursor: pointer;
+      padding: 1em;
+
+      &:hover {
+        color: $text-selected;
+      }
+    }
+  }
+}

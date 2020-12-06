@@ -1,6 +1,7 @@
 // Text Input
 
-.text-input {
+.text-input,
+.text-area {
   text-align: left;
   margin-bottom: 1.5em;
   transition: all .3s;
@@ -11,12 +12,12 @@
   }
 }
 
-.text-input-label {
+.text-input-label,
+.text-area-label {
   font-size: 1em;
   width: 100%;
   color: #aaa;
   display:block;
-  transform:translateY(-1.75em);
   transform-origin: 0 0;
   transition: all .3s;
   z-index: -1;
@@ -24,17 +25,28 @@
   pointer-events: none;
 }
 
-.text-input-field {
-  font-size: 1.25rem;
+.text-input-label {
+  transform:translateY(-1.75em);
+}
+
+.text-area-label {
+  transform:translateY(-2em);
+}
+
+.text-input-field,
+.text-area textarea {
+  font-size: 1.25em;
   box-shadow: none;
   background: $background;
-  color: $text;
+  color: $text-selected;
   border-radius: 0;
   border-color: #ccc;
   border-style: none none solid none;
   width: 100%;
   transition: all .5s;
   padding: 5px;
+  -webkit-user-select: auto;
+  user-select: auto;
 
   &::placeholder {
     color: transparent;
@@ -46,8 +58,22 @@
     border-color: $text-selected;
   }
 
+}
+
+.text-input-field {
   &:focus + .text-input-label,
   &:not(:placeholder-shown) + .text-input-label {
     transform: translateY(-3em) scale(0.8);
+  }
+}
+
+.text-area textarea {
+  height: 6em;
+  resize: none;
+  overflow:hidden;
+
+  &:focus + .text-area-label,
+  &:not(:placeholder-shown) + .text-area-label {
+    transform: translateY(-6.5em) scale(0.8);
   }
 }

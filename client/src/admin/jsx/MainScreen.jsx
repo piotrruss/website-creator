@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { WithHover, t } from '../hocs';
+import { WithHover, t, goTo } from '../hocs';
 
 const MainScreen = ({ projects }) => (
   <div className="main-screen">
@@ -16,7 +16,9 @@ const MainScreen = ({ projects }) => (
         </WithHover>
       )}
       <WithHover message="create-new-project-hover">
-        <p className="main-screen__item">{ t('create-new-project') }</p>
+        <p className="main-screen__item" onClick={ goTo('creator') }>
+          { t('create-new-project') }
+        </p>
       </WithHover>
     </div>
   </div>

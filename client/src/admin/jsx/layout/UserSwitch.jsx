@@ -1,6 +1,6 @@
 import React from 'react';
-import { WithHover, t } from '../hocs';
-import { logout } from '../api';
+import { WithHover, t } from '../../hocs';
+import { logout } from '../../api';
 
 const User = ({ user, setUser, opened, setOpened }) => {
   const handleLogout = () => {

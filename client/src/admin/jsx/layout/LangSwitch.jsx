@@ -1,6 +1,6 @@
 import React from 'react';
-import { WithHover } from '../hocs';
-import { languages } from '../data/translations.js'
+import { WithHover } from '../../hocs';
+import { languages } from '../../data/translations.js'
 
 const LangSwitch = ({ lang, setLang, opened, setOpened}) => {
   const handleSetLang = (key) => {

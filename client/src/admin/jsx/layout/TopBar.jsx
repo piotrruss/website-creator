@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import LangSwitch from './LangSwitch.jsx';
-import User from './User.jsx';
+import UserSwitch from './UserSwitch.jsx';
 
 const TopBar = ({ user, setUser, lang, setLang }) => {
   const [opened, setOpened] = useState(false);
@@ -20,7 +20,7 @@ const TopBar = ({ user, setUser, lang, setLang }) => {
         setOpened={setOpened}
       />
         { user && (
-          <User
+          <UserSwitch
             user={user}
             setUser={setUser}
             opened={opened}
