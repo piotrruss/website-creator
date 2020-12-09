@@ -32,6 +32,10 @@
       &:hover {
         background: $text-selected;
       }
+
+      &:focus {
+        outline: 2px solid $text-selected;
+      }
     }
 
     &-text {
@@ -53,7 +57,9 @@
     &-next {
       color: $text-inactive;
       display: inline-block;
-      padding: 1em;
+      padding: .5em;
+      margin: 0 1em;
+      outline: none;
 
       &.active {
         color: $text;
@@ -63,6 +69,10 @@
         &:hover {
           color: $text-selected;
         }
+
+        &:focus {
+          border-bottom: 2px solid $text-selected;
+        }
       }
     }
 
@@ -71,10 +81,16 @@
       color: $text;
       transition: .3s color;
       cursor: pointer;
-      padding: 1em;
+      padding: .5em;
+      margin: 0 1em;
+      outline-width: 0;
 
       &:hover {
         color: $text-selected;
+      }
+
+      &:focus {
+        border-bottom: 2px solid $text-selected;
       }
     }
   }

@@ -28,10 +28,12 @@ export const translations = {
     "website-description-hover": "Website description should have around 150 characters, it will be displayed on search results under website title",
     "upload-favicon": "Website's favicon",
     "upload-favicon-hover": "Click to add favicon for your website (32x32px)",
+    "back": "Back",
     "next": "Next",
     "creator-next-hover": "Click to navigate to next screen",
     "cancel": "Cancel",
     "creator-cancel-hover": "Click to exit creator without saving changes",
+    "website-sections": "Website Sections",
   },
   "de": {
     "main-title": "Website Manager",

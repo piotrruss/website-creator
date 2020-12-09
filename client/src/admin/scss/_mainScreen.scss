@@ -39,9 +39,14 @@
     cursor: pointer;
     margin-top: 5vh;
     margin-bottom: 5vh;
+    outline-width: 0;
 
     &:hover {
       color: $text-selected;
+    }
+
+    &:focus {
+      border-bottom: 2px solid $text-selected;
     }
   }
 
